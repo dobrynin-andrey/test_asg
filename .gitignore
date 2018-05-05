@@ -1,5 +1,6 @@
 .idea/
 bitrix/
 upload/
+local/vendor/
 
 .DS_Store
