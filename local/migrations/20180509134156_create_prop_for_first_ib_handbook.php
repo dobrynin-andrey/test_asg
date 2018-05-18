@@ -102,13 +102,13 @@ class CreatePropForFirstIbHandbook extends AbstractMigration
                 ),
             );
 
-            $userTypeData["UF_ELEMENT_ID"] = array(
+            $userTypeData["UF_XML_ID"] = array(
                 'ENTITY_ID'         => 'HLBLOCK_'.$highLoadBlockId,
                 'FIELD_NAME'        => 'UF_XML_ID',
                 'USER_TYPE_ID'      => 'string',
-                'XML_ID'            => 'XML_ID_ELEMENT_ID',
+                'XML_ID'            => '',
                 'SORT'              => 500,
-                'MULTIPLE'          => 'Y',
+                'MULTIPLE'          => 'N',
                 'MANDATORY'         => 'Y',
                 'SHOW_FILTER'       => 'Y',
                 'SHOW_IN_LIST'      => 'Y',
@@ -118,20 +118,20 @@ class CreatePropForFirstIbHandbook extends AbstractMigration
                     'DEFAULT_VALUE' => '',
                 ),
                 'EDIT_FORM_LABEL'   => array(
-                    'ru'    => 'ID элемента',
-                    'en'    => 'Element ID',
+                    'ru'    => 'Внешний код',
+                    'en'    => 'External code',
                 ),
                 'LIST_COLUMN_LABEL' => array(
-                    'ru'    => 'ID элемента',
-                    'en'    => 'Element ID',
+                    'ru'    => 'Внешний код',
+                    'en'    => 'External code',
                 ),
                 'LIST_FILTER_LABEL' => array(
-                    'ru'    => 'ID элемента',
-                    'en'    => 'Element ID',
+                    'ru'    => 'Внешний код',
+                    'en'    => 'External code',
                 ),
                 'ERROR_MESSAGE'     => array(
-                    'ru'    => 'Ошибка при заполнении пользовательского свойства <ID элемента>',
-                    'en'    => 'An error in completing the user field <Element ID>',
+                    'ru'    => 'Ошибка при заполнении пользовательского свойства <Внешний код>',
+                    'en'    => 'An error in completing the user field <External code>',
                 ),
                 'HELP_MESSAGE'      => array(
                     'ru'    => '',
@@ -140,8 +140,36 @@ class CreatePropForFirstIbHandbook extends AbstractMigration
             );
 
             foreach ($userTypeData as $itemData) {
-                $userTypeEntity->Add($itemData);
+               $userTypeEntity->Add($itemData);
             }
+
+
+            // Массив значений
+            $entityValues = array(
+                0 => array(
+                    'UF_NAME' => 'Hl своство 1',
+                    'UF_XML_ID' => 1
+                ),
+                1 => array(
+                    'UF_NAME' => 'Hl своство 2',
+                    'UF_XML_ID' => 2
+                ),
+                2 => array(
+                    'UF_NAME' => 'Hl своство 3',
+                    'UF_XML_ID' => 3
+                ),
+            );
+
+            $hlblock = HL::getById($highLoadBlockId)->fetch();
+
+            $entity = HL::compileEntity($hlblock);
+            $entityDataClass = $entity->getDataClass();
+
+            // Добавление значений
+            foreach ($entityValues as $key => $arValue) {
+                $addEntityResult[$key] = $entityDataClass::add($arValue);
+            }
+
         }
 
 
