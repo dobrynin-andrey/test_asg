@@ -1,6 +1,5 @@
 <?
-require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
-$APPLICATION->SetTitle("Главная");
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 if (isset($_REQUEST['first_filter']))
     $GLOBALS['elementsFilter']['PROPERTY_BINDING_ELEMENT'] = $_REQUEST['first_filter'];
@@ -11,12 +10,12 @@ if (isset($_REQUEST['second_filter']))
 
 ?><?$APPLICATION->IncludeComponent(
 	"andy:elements.list", 
-	".default", 
+	"ajax",
 	array(
 		"CACHE_FILTER" => "N",
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
+		"CACHE_TYPE" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
 		"FILTER_NAME" => "elementsFilter",
@@ -34,6 +33,6 @@ if (isset($_REQUEST['second_filter']))
 		"TEMPLATE_THEME" => ".default",
 	),
 	false
-);?><?
-require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
+);
+die();
 ?>
